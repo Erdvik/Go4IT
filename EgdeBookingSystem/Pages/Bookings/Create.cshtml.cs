@@ -24,6 +24,7 @@ namespace EgdeBookingSystem.Pages.Bookings
         public Equipment Equipment { get; set; }
 
         public IList<Booking> Bookings { get; set; }
+        public IList<DateTime> BookingsDates { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -40,6 +41,14 @@ namespace EgdeBookingSystem.Pages.Bookings
             }
 
             Bookings = await _context.Booking.Where(b => b.EquipmentID == id).OrderBy(b => b.StartDate).ToListAsync();
+
+            foreach (Booking b in Bookings)
+            {
+                for (var dt = b.StartDate; dt <= b.EndDate; dt = dt.AddDays(1))
+                {
+                    BookingsDates.Add(dt);
+                }
+            }
 
             return Page();
         }

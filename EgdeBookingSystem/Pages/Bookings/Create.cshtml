@@ -10,7 +10,13 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script src="~/js/bootstrap-datepicker.js"></script>
+<script src="~/js/bootstrap-datepicker.no.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<link href="~/css/bootstrap-datepicker.css" rel="stylesheet" />
+<link href="~/css/bootstrap-datepicker3.css" rel="stylesheet" />
+
+
 
 <h4>Book @Model.Equipment.Name</h4>
 
@@ -74,6 +80,12 @@
     </div>
 </div>
 
+<div class="input-daterange input-group" id="datepicker">
+    <input type="text" class="input-sm form-control" name="start" />
+    <span class="input-group-addon">to</span>
+    <input type="text" class="input-sm form-control" name="end" />
+</div>
+
 <div>
     <a asp-page="/UserView/Index">Back to List</a>
 </div>
@@ -121,11 +133,23 @@ else
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
 }
 
-@*<script type="text/javascript">
+<script type="text/javascript">
+    var disabledDated = JSON.parse('@Html.Raw(Model.BookingsDates)');
 
-        $(('input[name="daterange"]')).daterangepicker({
+    $('#datepicker').datepicker({
+        format: "dd/mm/yyyy",
+        todayBtn: true,
+        language: "no",
+        forceParse: false,
+        calendarWeeks: true,
+        todayHighlight: true,
+        datesDisabled: disabledDates
+    });
+
+        @*$(('input[name="daterange"]')).daterangepicker({
             "autoApply": true,
             "linkedCalendars": false,
             "showCustomRangeLabel": false,
@@ -134,5 +158,5 @@ else
             "drops": "auto"
         }, function (start, end, label) {
             console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
-        });
-    </script>*@
+        });*@
+</script>
