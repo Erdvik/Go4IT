@@ -42,6 +42,8 @@ namespace EgdeBookingSystem.Pages.Bookings
 
             Bookings = await _context.Booking.Where(b => b.EquipmentID == id).OrderBy(b => b.StartDate).ToListAsync();
 
+            BookingsDates = new List<DateTime>();
+
             foreach (Booking b in Bookings)
             {
                 for (var dt = b.StartDate; dt <= b.EndDate; dt = dt.AddDays(1))
