@@ -40,7 +40,10 @@ namespace EgdeBookingSystem.Pages.Bookings
                 return NotFound();
             }
 
-            Bookings = await _context.Booking.Where(b => b.EquipmentID == id).OrderBy(b => b.StartDate).ToListAsync();
+            Bookings = await _context.Booking
+                .Where(b => b.EquipmentID == id)
+                .OrderBy(b => b.StartDate)
+                .ToListAsync();
 
             BookingsDates = new List<DateTime>();
 
